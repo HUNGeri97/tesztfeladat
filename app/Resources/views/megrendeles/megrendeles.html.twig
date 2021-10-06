@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% form_theme form2 'bootstrap_4_layout.html.twig' %}
+
+{% form_theme form2 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block stylesheets %}
+<style>
+	#newForm {
+		display: none;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div id="simpleform">
+        {% include 'menu.html.twig' %}
+		<div style="background-color: silver;" class="col-12">
+			<p>Nettó összeg: <b>17,990 Ft</b></p>
+			<p>Nettó összeg: <b>4,857 Ft</b></p>
+			<p>Nettó összeg: <b style="color: red">22,847 Ft</b></p>
+		</div>
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+
+		<div id="newForm">
+            {{ form_start(form2) }}
+            {{ form_widget(form2) }}
+			<p style="color: red">A *-al jelölt mezők kitöltése kötelező!</p>
+            {{ form_end(form2) }}
+		</div>
+	</div>
+
+	<script>
+		setInterval(function() {
+		    if (document.getElementById('megrendeles_szamlazasiId').value == ""){
+                document.getElementsByTagName("LABEL")[1].style.display="none";
+                document.getElementById('newForm').style.display = "block";
+                document.getElementById('megrendeles_afsz').style.display = "none";
+                document.getElementById('megrendeles_save').style.display = "none";
+                phoneId = document.getElementById('megrendeles_new_phone');
+                if (phoneId.value.length < 3){
+                    phoneId.value = "+36";
+                }
+			} else {
+                document.getElementsByTagName("LABEL")[1].style.display="block";
+                document.getElementById('newForm').style.display = "none"
+                document.getElementById('megrendeles_afsz').style.display = "block";
+                document.getElementById('megrendeles_save').style.display = "block";
+			}
+        }, 50);
+	</script>
+</div>
+{% endblock %}
