@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+
+{% block body %}
+<div id="container">
+    {% include 'menu.html.twig' %}
+    <center>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <p style="color: red">A *-al jelölt mezők kitöltése kötelező!</p>
+        <a class="btn btn-danger" href="/cimek">MÉGSE</a>
+        {{ form_end(form) }}
+    </center>
+    <br/>
+    <br/>
+    <h2><b>Számlázási címeim:</b></h2>
+    <br/>
+    <table class = "table table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Típus</th>
+            <th>Név/Cégnév</th>
+            <th>Telefonszám</th>
+            <th>Adószám</th>
+            <th>Ország</th>
+            <th>Irányítószám</th>
+            <th>Város</th>
+            <th>Utca,házszám</th>
+            <th>Műveletek</th>
+        </tr>
+        </thead>
+        {% for d in data %}
+            <tr>
+                <td>{{ d.Type }}</td>
+                <td>{{ d.Name }}</td>
+                <td>{{ d.phone }}</td>
+                <td>{{ d.adoszam }}</td>
+                <td>{{ d.orszag }}</td>
+                <td>{{ d.iranyitoszam }}</td>
+                <td>{{ d.varos }}</td>
+                <td>{{ d.utcahazszam }}</td>
+                <td><button style="outline: none;border: none;" onclick="location.href = '/cimek/edit/{{ d.id }}'"><i class="fa fa-pencil" style="font-size:20px;color:dodgerblue;"></i></button><button style="outline: none;border: none;" onclick="location.href = '/cimek/del/{{ d.id }}'"><i class="fa fa-trash" style="font-size:20px;color:red;"></i></button></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        setInterval(function () {
+            phoneId = document.getElementById('edit_szamlazasicimek_phone');
+            if (phoneId.value.length < 3){
+                phoneId.value = "+36";
+            }
+        },50)
+    </script>
+</div>
+{% endblock %}

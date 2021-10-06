@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    {% include 'menu.html.twig' %}
+	<table class = "table table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<th>Rendelés</th>
+				<th>Ár</th>
+			</tr>
+		</thead>
+        {% for d in data %}
+			<tr>
+				<td>{{ d.Cim }}</td>
+				<td>{{ d.Ar }}</td>
+			</tr>
+        {% endfor %}
+	</table>
+</div>
+{% endblock %}
